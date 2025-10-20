@@ -1,0 +1,39 @@
+template:
+  id: social-media-scan-output-template-v1
+  name: Social Media Scan Results
+  version: 1.0
+  output:
+    format: csv
+    filename: outputs/{slug(question)}_{date}.csv
+    metadata_filename: outputs/{slug(question)}_{date}.meta.yaml
+    title: "Social Media Scan Results"
+
+workflow:
+  mode: non-interactive
+
+metadata:
+  - id: question
+    type: string
+    description: Original user question
+    template: "{{question}}"
+  - id: location
+    type: string
+    description: Detected or user-provided travel location
+    template: "{{location}}"
+  - id: time_period
+    type: object
+    fields:
+      start: "{{date_minus_24_months}}"
+      end: "{{date}}"
+  - id: category
+    type: string
+    description: Auto-detected category
+    template: "{{category}}"
+
+csv_columns:
+  - platform
+  - name
+  - date
+  - reply
+  - likes
+  - permalink
